@@ -1,18 +1,17 @@
-export const useFullScreen = (callback) => {
-    const element = useRef();
-    const triggerFull = () => {
-      if (element.current) {
-        element.current.requestFullscreen();
-        if (callback && typeof callback === "function") {
-          callback(true);
-        }
-      }
+export const useScroll = () => {
+    const [state, setState] = useState({
+      x: 0,
+      y: 0
+    });
+  
+    const onScroll = () => {
+      setState({y: window.scrollY, x: window.scrollX});
     };
-    const exitFull = () => {
-      document.exitFullscreen();
-      if (callback && typeof callback === "function") {
-        callback(false);
-      }
-    };
-    return { element, triggerFull, exitFull };
+  
+    useEffect(() => {
+      window.addEventListener("scroll", onScroll);
+      return () => window.removeEventListener("scroll", onScroll);
+    }, []);
+  
+    return state;
   };
