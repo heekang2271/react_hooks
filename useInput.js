@@ -1,14 +1,13 @@
-export const useInput = (initialValue, validator) => {
+export const useInput = (initialValue, validation) => {
     const [value, setValue] = useState(initialValue);
-    const onChange = (event) => {
+    const onChange = (e) => {
       const {
         target: { value }
-      } = event;
+      } = e;
   
-      let willUpdate = false;
-  
-      if (typeof validator === "function") {
-        willUpdate = validator(value);
+      let willUpdate = true;
+      if (typeof validation === "function") {
+        willUpdate = validation(value);
       }
       if (willUpdate) {
         setValue(value);
