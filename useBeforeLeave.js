@@ -7,7 +7,6 @@ export const useBeforeLeave = (onBefore) => {
       if (clientY <= 0) {
         onBefore();
       }
-      onBefore();
     };
   
     useEffect(() => {
